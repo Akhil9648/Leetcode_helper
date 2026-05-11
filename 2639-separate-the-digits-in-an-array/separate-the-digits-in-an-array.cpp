@@ -1,21 +1,15 @@
 class Solution {
 public:
-    void append(int n,vector<int>& ans){
-        vector<int>temp;
-        while(n){
-            int d=n%10;
-            temp.push_back(d);
-            n/=10;
-        }
-        reverse(temp.begin(),temp.end());
-        for(auto &it:temp){
-            ans.push_back(it);
+    void append(string& n,vector<int>& ans){
+        for(auto &it:n){
+            ans.push_back(it-'0');
         }
     }
     vector<int> separateDigits(vector<int>& nums) {
         vector<int>ans;
         for(auto &it:nums){
-            append(it,ans);
+            string a=to_string(it);
+            append(a,ans);
         }
         return ans;
     }
