@@ -26,12 +26,10 @@ public:
     int maxJumps(vector<int>& arr, int d) {
         n=arr.size();
         vector<int>dp(n,-1);
-        for(int i=0;i<n;i++){
-            solve(i,arr,d,dp);
-        }
         int maxi=0;
-        for(auto it:dp){
-            maxi=max(maxi,it);
+        for(int i=0;i<n;i++){
+            int a=solve(i,arr,d,dp);
+            maxi=max(maxi,a);
         }
         return maxi;
     }
