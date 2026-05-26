@@ -15,7 +15,6 @@ public:
             }
         }
         for(int i=0;i<n;i++){
-            cout<<guess[i]<<" ";
             if(mp[guess[i]]>0){
                 mp[guess[i]]--;
                 b++;
