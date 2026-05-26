@@ -20,8 +20,6 @@ public:
                 b++;
             }
         }
-        string ans;
-        ans+=to_string(a)+'A'+to_string(b)+'B';
-        return ans; 
+        return to_string(a)+'A'+to_string(b)+'B';
     }
 };
