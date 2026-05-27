@@ -7,9 +7,13 @@ public:
             sort(a.begin(),a.end());
             mp[a].push_back(it);
         }
-        vector<vector<string>>ans;
+        vector<vector<string>>ans(mp.size());
+        int i=0;
         for(auto it:mp){
-            ans.push_back(it.second);
+            for(auto u:it.second){
+                ans[i].push_back(u);
+            }
+            i++;
         }
         return ans;
     }
