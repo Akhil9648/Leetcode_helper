@@ -1,7 +1,8 @@
-class Solution1 {
+class Solution {
 public:
-    string ans="";
-    bool ispal(int i,int j,string &s){
+    string ans;
+    bool isPal(int i,int j,string &s){
+        int n=s.size();
         while(i<=j){
             if(s[i]!=s[j]) return false;
             i++;
@@ -9,44 +10,23 @@ public:
         }
         return true;
     }
-    void solve(int i,int j,string &s){
-        if(i>j || (j-i+1)<ans.size()) return ;
-        if(ispal(i,j,s)){
-            int u=j-i+1;
-            if(u>ans.size()){
-                ans=s.substr(i,u);
-            }
-        }   
-        solve(i+1,j,s);
-        solve(i,j-1,s);
-        return;
-    }
-    string longestPalindrome(string s) {
-       int n=s.size();
-       solve(0,n-1,s);
-       return ans;
-    }
-};
-class Solution {
-public:
-    string longestPalindrome(string s) {
-       int n=s.size();
-       string ans="";
-       int start=0,maxLen=0;
-       auto expand=[&](int l,int r){
-        while(l>=0 && r<n && s[l]==s[r]){
-            if(r-l+1>maxLen){
-                maxLen=(r-l+1);
-                start=l;
-            }
-            l--;
-            r++;
+    int solve(int i,int j,string &s,vector<vector<int>>& dp){
+        if(i>j) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(s[i]==s[j] && isPal(i,j,s)){
+            int size=j-i+1;
+            if(size>ans.size()) ans=s.substr(i,size);
+            return dp[i][j]=size;
         }
-       };
-       for(int i=0;i<n;i++){
-            expand(i,i);
-            expand(i,i+1);
-       }
-       return s.substr(start,maxLen);
+        if(j-i+1<ans.size()) return 0;
+        int takel=solve(i+1,j,s,dp);
+        int taker=solve(i,j-1,s,dp);
+        return dp[i][j]= max(takel,taker);
+    }
+    string longestPalindrome(string s) {
+        int n=s.size();
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        solve(0,n-1,s,dp);
+        return ans;
     }
 };
