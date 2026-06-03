@@ -10,8 +10,8 @@ public:
         for(int j=0;j<m;j++){
             arr2.push_back({waterStartTime[j],waterDuration[j]});
         }
-        sort(arr1.begin(),arr1.end());
-        sort(arr2.begin(),arr2.end());
+        // sort(arr1.begin(),arr1.end());
+        // sort(arr2.begin(),arr2.end());
         int curr1=INT_MAX;
         for(int i=0;i<n;i++){
             int a=arr1[i].first+arr1[i].second;
