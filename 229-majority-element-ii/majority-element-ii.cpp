@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        int cnt=1,num=nums[0];
+        int cnt=1;
         vector<int>ans;
         int n=nums.size();
-        if(n==1) return {num};
+        if(n==1) return {nums[0]};
         for(int i=1;i<n;i++){
             if(nums[i]==nums[i-1]) cnt++;
             else{
