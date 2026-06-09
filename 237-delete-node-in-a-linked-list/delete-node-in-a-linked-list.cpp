@@ -16,6 +16,5 @@ public:
         }
         temp->val=temp->next->val;
         temp->next=NULL;
-        // return node;
     }
 };
