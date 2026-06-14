@@ -12,7 +12,6 @@ public:
             }
             i++;
         }
-        cout<<"Count: "<<n-cnt;
         return n-cnt;
     }
 };
