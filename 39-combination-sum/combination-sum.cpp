@@ -7,10 +7,10 @@ int n;
             return ;
         }
         if(i>=n || target<0) return ;
-        solve(i+1,arr,target,ans,curr);
-        target-=arr[i];
         curr.push_back(arr[i]);
-        solve(i,arr,target,ans,curr);
+        solve(i,arr,target-arr[i],ans,curr);
+        curr.pop_back();
+        solve(i+1,arr,target,ans,curr);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         n=candidates.size();
