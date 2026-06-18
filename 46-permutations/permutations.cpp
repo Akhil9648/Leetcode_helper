@@ -1,18 +1,19 @@
 class Solution {
 public: 
     int n;
-    void solve(vector<int>&nums,vector<vector<int>>& ans,vector<int>curr,unordered_set<int>&st){
+    void solve(vector<int>&nums,vector<vector<int>>& ans,vector<int>curr){
         if(curr.size()==n){
             ans.push_back(curr);
             return;
         }
         for(int i=0;i<n;i++){
-            if(!st.count(i)){
+            if(nums[i]<11){
                 curr.push_back(nums[i]);
-                st.insert(i);
-                solve(nums,ans,curr,st);
+                int a=nums[i];
+                nums[i]=11;
+                solve(nums,ans,curr);
                 curr.pop_back();
-                st.erase(i);
+                nums[i]=a;
             }
         }
     }
@@ -20,8 +21,7 @@ public:
         vector<vector<int>>ans;
         n=nums.size();
         vector<int>curr;
-        unordered_set<int>st;
-        solve(nums,ans,curr,st);
+        solve(nums,ans,curr);
         return ans;
     }
 };
