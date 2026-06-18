@@ -1,7 +1,7 @@
 class Solution {
 public: 
     int n;
-    void solve(vector<int>nums,vector<vector<int>>& ans,vector<int>curr,unordered_set<int>&st){
+    void solve(vector<int>&nums,vector<vector<int>>& ans,vector<int>curr,unordered_set<int>&st){
         if(curr.size()==n){
             ans.push_back(curr);
             return;
