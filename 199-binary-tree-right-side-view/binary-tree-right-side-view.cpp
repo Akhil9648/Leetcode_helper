@@ -11,18 +11,27 @@
  */
 class Solution {
 public:
-    unordered_map<int,int>mp;
-    void solve(TreeNode *root,int level){
-        if(!root) return;
-        mp[level]=root->val;
-        solve(root->left,level+1);
-        solve(root->right,level+1);
-    }
     vector<int> rightSideView(TreeNode* root) {
-        solve(root,0);
-        vector<int>ans(mp.size(),0);
+        if(!root) return {};
+        map<int,TreeNode*>mp;
+        queue<pair<TreeNode*,int>>q;
+        q.push({root,1});
+        while(!q.empty()){
+            auto it=q.front();
+            q.pop();
+            TreeNode* curr=it.first;
+            int level=it.second;
+            mp[level]=curr;
+            if(curr->left){
+                q.push({curr->left,level+1});
+            }
+            if(curr->right){
+                q.push({curr->right,level+1});
+            }
+        }
+        vector<int>ans;
         for(auto it:mp){
-            ans[it.first]=it.second;
+            ans.push_back(it.second->val);
         }
         return ans;
     }
