@@ -11,18 +11,21 @@
  */
 class Solution {
 public:
-    pair<int,int>solve(TreeNode* root){
-        if(!root){
-            return {0,0};
+    int solve(TreeNode* root,int flag,map<pair<TreeNode*,int>,int>& mp){
+        if(!root) return 0;
+        if(mp.count({root,flag})) return mp[{root,flag}];
+        int take=0,notTake=0;
+        if(!flag){
+            take=root->val+solve(root->left,1,mp)+solve(root->right,1,mp);
+            notTake=solve(root->left,0,mp)+solve(root->right,0,mp);
         }
-        pair<int,int>a=solve(root->left);
-        pair<int,int>b=solve(root->right);
-        int nr=max(a.second,a.first)+max(b.second,b.first);
-        return {nr,root->val+a.first+b.first};
+        else{
+            notTake=solve(root->left,0,mp)+solve(root->right,0,mp);
+        }
+        return mp[{root,flag}]=max(take,notTake);
     }
     int rob(TreeNode* root) {
-        pair<int,int> it=solve(root);
-        return max(it.second,it.first);
-
+        map<pair<TreeNode*,int>,int>mp;
+        return solve(root,0,mp);
     }
 };
