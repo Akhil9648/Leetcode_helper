@@ -10,18 +10,31 @@
  */
 class Solution {
 public:
-    int pairSum(ListNode* head) {
-        vector<int>arr;
+    int size(ListNode* head){
         ListNode* temp=head;
+        int cnt=0;
         while(temp){
-            arr.push_back(temp->val);
+            cnt++;
             temp=temp->next;
         }
-        int n=arr.size();
-        int maxi=0;
-        for(int i=0;i<n/2;i++){
-            int sum=arr[i]+arr[n-i-1];
+        return cnt;
+    }
+    int pairSum(ListNode* head) {
+        stack<int>st;
+        int listsize=size(head);
+        int cnt=0,maxi=0;
+        ListNode* temp=head;
+        while(temp){
+            st.push(temp->val);
+            temp=temp->next;
+        }
+        temp=head;
+        while(cnt<listsize/2){
+            int sum=temp->val+st.top();
             maxi=max(maxi,sum);
+            st.pop();
+            temp=temp->next;
+            cnt++;
         }
         return maxi;
     }
