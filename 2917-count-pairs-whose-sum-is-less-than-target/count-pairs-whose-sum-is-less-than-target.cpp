@@ -4,13 +4,15 @@ public:
         int n=nums.size();
         sort(nums.begin(),nums.end());
         int ans=0;
-        for(int i=1;i<n;i++){
-            for(int j=i-1;j>=0;j--){
-                int sum=nums[i]+nums[j];
-                if(sum<target){
-                    ans+=(j+1);
-                    break;
-                }
+        int i=0,j=n-1;
+        while(i<j){
+            int sum=nums[i]+nums[j];
+            if(sum<target){
+                ans+=(j-i);
+                i++;
+            }
+            else{
+                j--;
             }
         }
         return ans;
