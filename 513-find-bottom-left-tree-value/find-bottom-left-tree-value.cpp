@@ -12,21 +12,25 @@
 class Solution {
 public:
     int findBottomLeftValue(TreeNode* root) {
-        queue<TreeNode*>q;
-        q.push(root);
-        int ans=root->val;
+        queue<pair<TreeNode*,int>>q;
+        q.push({root,0});
+        unordered_map<int,TreeNode*>mp;
+        mp[0]=root;
+        int high=0;
         while(!q.empty()){
             auto it=q.front();
             q.pop();
-            ans=it->val;
-            if(it->right){
-                q.push(it->right);
+            TreeNode* nd=it.first;
+            int lvl=it.second;
+            high=max(high,lvl);
+            mp[lvl]=nd;
+            if(nd->right){
+                q.push({nd->right,lvl+1});
             }
-            if(it->left){
-                // ans=it->left->val;
-                q.push(it->left);
+            if(nd->left){
+                q.push({nd->left,lvl+1});
             }
         }
-        return ans;
+        return mp[high]->val;
     }
 };
