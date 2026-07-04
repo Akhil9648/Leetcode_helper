@@ -11,51 +11,41 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* temp1=l1,*temp2=l2;
         int carry=0;
-        ListNode* a=l1,*b=l2;
         ListNode* ans=new ListNode(-1);
-        ListNode* temp=ans;
-        while(a && b){
-            int sum=a->val+b->val+carry;
-            if(sum>=10){
-                carry=sum/10;
-            }
-            else carry=0;
+        ListNode* ptr=ans;
+        while(temp1 && temp2){
+            int sum=temp1->val+temp2->val+carry;
+            carry=sum/10;
             sum%=10;
             ListNode* curr=new ListNode(sum);
-            temp->next=curr;
-            temp=curr;
-            a=a->next;
-            b=b->next;
+            ptr->next=curr;
+            ptr=curr;
+            temp1=temp1->next;
+            temp2=temp2->next;
         }
-        while(a){
-            int sum=a->val+carry;
-            if(sum>=10){
-                carry=sum/10;
-            }
-            else carry=0;
+        while(temp1){
+            int sum=temp1->val+carry;
+            carry=sum/10;
             sum%=10;
             ListNode* curr=new ListNode(sum);
-            temp->next=curr;
-            temp=curr;
-            a=a->next;
+            ptr->next=curr;
+            ptr=curr;
+            temp1=temp1->next;
         }
-        while(b){
-            int sum=b->val+carry;
-            if(sum>=10){
-                carry=sum/10;
-            }
-            else carry=0;
+        while(temp2){
+            int sum=temp2->val+carry;
+            carry=sum/10;
             sum%=10;
             ListNode* curr=new ListNode(sum);
-            temp->next=curr;
-            temp=curr;
-            b=b->next;
+            ptr->next=curr;
+            ptr=curr;
+            temp2=temp2->next;
         }
         if(carry>0){
             ListNode* curr=new ListNode(carry);
-            temp->next=curr;
-            temp=curr;
+            ptr->next=curr;
         }
         return ans->next;
     }
