@@ -1,19 +1,18 @@
 class Solution {
 public:
     int countPairs(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
         int n=nums.size();
-        int i=0,j=n-1;
-        int cnt=0;
-        while(i<j){
-            int a=nums[i]+nums[j];
-            if(a<target){
-                cnt+=(j-i);
-                cout<<nums[i]<<" ";
-                i++;
+        sort(nums.begin(),nums.end());
+        int ans=0;
+        for(int i=1;i<n;i++){
+            for(int j=i-1;j>=0;j--){
+                int sum=nums[i]+nums[j];
+                if(sum<target){
+                    ans+=(j+1);
+                    break;
+                }
             }
-            else j--;
         }
-        return cnt;
+        return ans;
     }
 };
