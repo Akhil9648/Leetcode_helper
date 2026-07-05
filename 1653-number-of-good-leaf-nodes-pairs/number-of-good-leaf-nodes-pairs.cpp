@@ -12,44 +12,46 @@
 class Solution {
 public:
     int countPairs(TreeNode* root, int distance) {
-        if(!root) return 0;
-        unordered_map<TreeNode*, vector<TreeNode*>>st;
+        unordered_map<TreeNode*,vector<TreeNode*>>mp;
         unordered_set<TreeNode*>leaf;
         queue<TreeNode*>q;
         q.push(root);
         while(!q.empty()){
-            auto it=q.front();
+            auto node=q.front();
             q.pop();
-            if(it->left){
-                st[it].push_back(it->left);
-                st[it->left].push_back(it);
-                q.push(it->left);
+            if(node->left){
+                mp[node].push_back(node->left);
+                mp[node->left].push_back(node);
+                q.push(node->left);
             }
-            if(it->right){
-                st[it].push_back(it->right);
-                st[it->right].push_back(it);
-                q.push(it->right);
+            if(node->right){
+                mp[node].push_back(node->right);
+                mp[node->right].push_back(node);
+                q.push(node->right);
             }
-            if(!it->left && !it->right){
-                leaf.insert(it);
+            if(!node->left && !node->right){
+                leaf.insert(node);
             }
         }
         int cnt=0;
         for(auto it:leaf){
-            queue<pair<TreeNode*,int>>ch;
-            unordered_set<TreeNode*> vis;
-            ch.push({it,0});
-            vis.insert(it);
-            while(!ch.empty()){
-                auto iu=ch.front();
-                ch.pop();
-                if(iu.second==distance) continue;
-                for(auto i:st[iu.first]){
-                    if(!vis.count(i)){
-                        vis.insert(i);
-                        ch.push({i,iu.second+1});
-                        if(leaf.count(i) && i!=it) cnt++;
-                    }
+            queue<pair<TreeNode*,int>>q;
+            unordered_set<TreeNode*>vis;
+            q.push({it,0});
+            while(!q.empty()){
+                auto i=q.front();
+                q.pop();
+                TreeNode* node=i.first;
+                int dis=i.second;
+                if(node!=it && leaf.count(node)){
+                    cnt++;
+                    continue;
+                }
+                if(dis>=distance) continue;
+                for(auto u:mp[node]){
+                    if(vis.count(u)) continue;
+                    vis.insert(u);
+                    q.push({u,dis+1});
                 }
             }
         }
