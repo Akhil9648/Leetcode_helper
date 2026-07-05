@@ -20,7 +20,6 @@ public:
         return NULL;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        bool a=0,b=0;
         return solve(root,p,q);
     }
 };
