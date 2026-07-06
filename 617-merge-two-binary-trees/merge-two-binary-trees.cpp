@@ -11,18 +11,31 @@
  */
 class Solution {
 public:
-    void merge(TreeNode* root1,TreeNode* root2){
-        if(root1 && root2) root1->val+=root2->val;
-        if(root1->left && root2->left) merge(root1->left,root2->left);
-        else if(!root1->left) root1->left=root2->left;
-        if(root1->right && root2->right) merge(root1->right,root2->right);
-        if(!root1->right) root1->right=root2->right;
+    void solve(TreeNode* root1,TreeNode* root2){
+        if(!root1 || !root2) return;
+        if(root1->left && root2->left){
+            solve(root1->left,root2->left);
+        }
+        else{
+            if(root2->left){
+                root1->left=root2->left;
+            }
+        }
+        if(root1->right && root2->right){
+            solve(root1->right,root2->right);
+        }
+        else{
+            if(root2->right){
+                root1->right=root2->right;
+            }
+        }
+        root1->val+=root2->val;
+        return;
     }
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
         if(!root1) return root2;
         if(!root2) return root1;
-        if(!root1 && !root2) return NULL;
-        merge(root1,root2);
+        solve(root1,root2);
         return root1;
     }
 };
