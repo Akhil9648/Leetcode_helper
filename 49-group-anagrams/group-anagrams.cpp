@@ -8,7 +8,6 @@ public:
             mp[a].push_back(it);
         }
         vector<vector<string>>ans;
-        int i=0;
         for(auto it:mp){
            ans.push_back(it.second);
         }
