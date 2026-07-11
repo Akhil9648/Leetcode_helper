@@ -2,7 +2,7 @@ class Solution {
 public:
     int firstUniqChar(string s) {
         vector<int>freq(26,0);
-        for(auto it:s){
+        for(auto &it:s){
             freq[it-'a']++;
         }
         int n=s.size();
