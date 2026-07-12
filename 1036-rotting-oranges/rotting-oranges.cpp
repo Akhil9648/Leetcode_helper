@@ -1,8 +1,8 @@
 class Solution {
 public:
-    int dr[4]={0,1,0,-1};
-    int dc[4]={1,0,-1,0};
     int orangesRotting(vector<vector<int>>& grid) {
+        int dr[4]={0,1,0,-1};
+        int dc[4]={1,0,-1,0};
         int n=grid.size();
         int m=grid[0].size();
         queue<vector<int>>q;
