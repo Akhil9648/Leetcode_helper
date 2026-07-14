@@ -2,11 +2,11 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n=height.size();
-        vector<int>prev(n,0),nxt(n,0);
+        vector<int>prev,nxt(n,0);
         int maxi=0;
         for(int i=0;i<n;i++){
             maxi=max(maxi,height[i]);
-            prev[i]=maxi;
+            prev.push_back(maxi);
         }
         maxi=0;
         for(int i=n-1;i>=0;i--){
