@@ -2,23 +2,22 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n=height.size();
-        vector<int>pge,nge(n);
+        vector<int>prev(n,0),nxt(n,0);
         int maxi=0;
-        for(auto it:height){
-            maxi=max(maxi,it);
-            pge.push_back(maxi);
+        for(int i=0;i<n;i++){
+            maxi=max(maxi,height[i]);
+            prev[i]=maxi;
         }
         maxi=0;
         for(int i=n-1;i>=0;i--){
             maxi=max(maxi,height[i]);
-            nge[i]=maxi;
+            nxt[i]=maxi;
         }
-        int ans=0;
+        int sum=0;
         for(int i=0;i<n;i++){
-            int a=min(pge[i],nge[i]);
-            int curr=a-height[i];
-            ans+=curr;
+            int a=min(prev[i],nxt[i])-height[i];
+            sum+=a;
         }
-        return ans;
+        return sum;
     }
 };
