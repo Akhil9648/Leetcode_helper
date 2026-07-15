@@ -1,27 +1,25 @@
 class Solution {
 public:
-    void solve(int n,int i,int j,vector<string>& ans,string &s){
-            if(s.size()==n*2)
-            {
-                ans.push_back(s);
-                return;
-            }
-        if(i<n){
-            s.push_back('(');
-            solve(n,i+1,j,ans,s);
-            s.pop_back();
+    void solve(int n,int m,vector<string>& ans,string & curr){
+        if(n==0 && m==0){
+            ans.push_back(curr);
+            return;
         }
-        if(j<i){
-            s.push_back(')');
-            solve(n,i,j+1,ans,s);
-            s.pop_back();
+        if(n<m){
+            curr.push_back(')');
+            solve(n,m-1,ans,curr);
+            curr.pop_back();
         }
-        return;
+        if(n>0){
+            curr.push_back('(');
+            solve(n-1,m,ans,curr);
+            curr.pop_back();
+        }
     }
     vector<string> generateParenthesis(int n) {
         vector<string>ans;
-        string s;
-        solve(n,0,0,ans,s);
+        string curr;
+        solve(n,n,ans,curr);
         return ans;
     }
 };
