@@ -11,7 +11,6 @@ public:
             else even+=it;
             it++;
         }
-        cout<<odd<<" "<<even;
         return GCD(odd,even);
     }
 };
