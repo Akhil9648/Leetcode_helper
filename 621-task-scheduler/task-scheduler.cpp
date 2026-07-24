@@ -1,38 +1,44 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        vector<int>tsk(26,0);
-        for(char c:tasks){
-            tsk[c-'A']++;
+        priority_queue<pair<int,int>>pq;
+        vector<int>cnt(26,0),pri(26,0);
+        for(auto it:tasks){
+            cnt[it-'A']++;
         }
-        int time=0;
-        priority_queue<int>pq;
         for(int i=0;i<26;i++){
-            if(tsk[i]>0) pq.push(tsk[i]);
+            if(cnt[i]>0){
+                pq.push({cnt[i],i});
+            }
         }
-        vector<int>remaining;
+        int ans=0;
         while(!pq.empty()){
-            int it=pq.top();
-            pq.pop();
-            time++;
-            if(it>1) remaining.push_back(it-1);
-            if(remaining.empty() && pq.empty()) break;
-            int b=n;
-            while(b--){
-                if(pq.empty() && remaining.empty()) break;
-                // arr.push_back(1);
-                time++;
-                if(pq.size()>0){
-                    int a=pq.top();
+            priority_queue<pair<int,int>>cu;
+                for(int i=0;i<26;i++){
+                    pri[i]--;
+                }
+            while(!pq.empty()){
+                auto it=pq.top();
+                int c=it.first;
+                int curr=it.second;
+                if(pri[curr]<0){
                     pq.pop();
-                    if(a>1) remaining.push_back(a-1);
+                    if(c>1) pq.push({c-1,curr});
+                    pri[curr]=n;
+                    break;
+                }
+                else{
+                    cu.push(it);
+                    pq.pop();
                 }
             }
-            for(int i:remaining){
-                pq.push(i);
+            while(!cu.empty()){
+                auto it=cu.top();
+                pq.push(it);
+                cu.pop();
             }
-            remaining.clear();
+            ans++;
         }
-        return time;
+        return ans;
     }
 };
