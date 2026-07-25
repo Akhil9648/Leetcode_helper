@@ -1,33 +1,28 @@
 class Solution {
 public:
-    bool canLoad(int mid,vector<int>& weights,int days,int n){
-        int day=1;
-        int load=0;
-        for(int i=0;i<n;i++){
-            if (weights[i] > mid) return false;
-            if(load+weights[i]<=mid) load+=weights[i];
-            else{
-                load=weights[i];
-                day++;
+    bool ship(int mid,vector<int>& weights,int days){
+        int curr=0,time=1;
+        for(auto &it:weights){
+            if(curr+it>mid){
+                curr=it;
+                time++;
             }
-            if(day>days) return false;
+            else curr+=it;
         }
-        return true;
+        return time<=days;
     }
     int shipWithinDays(vector<int>& weights, int days) {
-        int n=weights.size();
-        int sum=0,ans=0;
-        for(int i:weights) sum+=i;
-        int low=0,high=sum;
+        int high=0;
+        for(auto &it:weights) high+=it;
+        int low=*max_element(weights.begin(),weights.end());
+        int ans;
         while(low<=high){
             int mid=(low+high)/2;
-            if(canLoad(mid,weights,days,n)){
-                ans=mid;
+            if(ship(mid,weights,days)){
                 high=mid-1;
+                ans=mid;
             }
-            else{
-                low=mid+1;
-            }
+            else low=mid+1;
         }
         return ans;
     }
