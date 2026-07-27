@@ -15,6 +15,3 @@ public:
         return (maxi1-1)*(maxi2-1);
     }
 };
-    const size_t BUFFER_SIZE = 0x6fafffff;
-alignas(std::max_align_t) char buffer[BUFFER_SIZE];
-size_t buffer_pos = 0;
