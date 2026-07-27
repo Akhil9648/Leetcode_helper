@@ -1,15 +1,3 @@
-class Solution1{
-public:
-    int maximumProduct(vector<int>& nums) {
-        int n=nums.size();
-        sort(nums.begin(),nums.end());
-        int a=nums[0],b=nums[1],c=nums[n-1];
-        int mul=a*b*c;
-        a=nums[n-1],b=nums[n-2],c=nums[n-3];
-        mul=max(mul,a*b*c);
-        return mul;
-    }
-};
 class Solution {
 public:
     int maximumProduct(vector<int>& nums) {
