@@ -4,13 +4,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        xor_all=0
+        xor_all,a=0,0
         for i in nums:
             xor_all^=i
-        nums.sort()
-        n=len(nums)
+            if i>0:
+                a=i
+        if a==0:
+            return 0
         if xor_all>0:
             return len(nums)
-        elif xor_all^nums[n-1]>0:
-            return len(nums)-1
-        return 0
+        return len(nums)-1
