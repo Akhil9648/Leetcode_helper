@@ -5,7 +5,6 @@ public:
         string a;
         for(auto it:s){
             if((it>='a' && it<='z') || (it>='0' && it<='9')) a.push_back(it);
-            cout<<it<<" ";
         }
         s=a;
         reverse(a.begin(),a.end());
