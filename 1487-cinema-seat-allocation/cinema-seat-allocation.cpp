@@ -1,28 +1,3 @@
-class Solution1 {
-public:
-    int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
-        vector<vector<int>>res(n,vector<int>(10,1));
-        for(auto it:reservedSeats){
-            res[it[0]-1][it[1]-1]=0;
-        }
-        int cnt=0;
-        for(int i=0;i<n;i++){
-            int one=0,tw=0,th=0;
-            if(res[i][1] && res[i][2] && res[i][3] && res[i][4]) {
-                one++;
-            }
-            if(res[i][3] && res[i][4] && res[i][5] && res[i][6]){
-                tw++;
-            }
-            if(res[i][5] && res[i][6] && res[i][7] && res[i][8]){
-                th++;
-            }
-            if((one && tw && th) || (one && th)) cnt+=2;
-            else if((one && tw) || (tw && th) || one || tw || th) cnt++;
-        }
-        return cnt;
-    }
-};
 class Solution {
 public:
     int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
