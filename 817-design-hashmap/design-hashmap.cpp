@@ -27,9 +27,9 @@ public:
     
     void remove(int key) {
         int hash=key%sz;
-        for(auto &it:arr[hash]){
-            if(it.first==key){
-                it.second=-1;
+        for(auto it = arr[hash].begin(); it != arr[hash].end(); ++it){
+            if(it->first==key){
+                arr[hash].erase(it);
                 break;
             }
         }
