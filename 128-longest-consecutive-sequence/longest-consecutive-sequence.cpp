@@ -7,7 +7,7 @@ public:
         int maxi=0;
         for(auto it:nums){
             int a=it;
-            while(st.count(a-1)) a--;
+            if(st.count(a-1)) continue;
             int cnt=0;
             while(st.count(a)){
                 cnt++;
