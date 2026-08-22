@@ -1,17 +1,19 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int i=1,cnt=0;
-        int n=nums.size();
-        while(i<nums.size()){
+        int count=0,n=nums.size();
+        for(int i=1;i<n;i++){
             if(nums[i]==nums[i-1]){
-                cout<<nums[i]<<endl;
+                nums[i-1]=-101;
+                count++;
+            }
+        }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==-101){
                 nums.erase(nums.begin()+i);
-                cnt++;
                 i--;
             }
-            i++;
         }
-        return n-cnt;
+        return n-count;
     }
 };
