@@ -1,20 +1,11 @@
 class Solution {
 public:
-int n,m;
-    int solve(int i,int j,string& text1,string& text2,vector<vector<int>>& dp){
+    int n,m;
+    int solve(int i,int j,string &s,string & t,vector<vector<int>>& dp){
         if(i>=n || j>=m) return 0;
         if(dp[i][j]!=-1) return dp[i][j];
-        int take=0,take1=0,take2=0;
-        if(text1[i]==text2[j]){
-            take=1+solve(i+1,j+1,text1,text2,dp);
-            return dp[i][j]=take;
-        }
-        else{
-            take1=solve(i+1,j,text1,text2,dp);
-            take2=solve(i,j+1,text1,text2,dp);
-            return dp[i][j]=max(take1,take2);
-        }
-        return -1;
+        if(s[i]==t[j]) return dp[i][j]=1+solve(i+1,j+1,s,t,dp);
+        return dp[i][j]=max(solve(i+1,j,s,t,dp),solve(i,j+1,s,t,dp));
     }
     int longestCommonSubsequence(string text1, string text2) {
         n=text1.size();
