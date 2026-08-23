@@ -14,7 +14,6 @@ public:
                 ans.push_back(nums[dq.front()]);
                 if(nums[dq.front()]==nums[j]){
                     dq.pop_front();
-                    cout<<nums[j]<<" "<<i<<" ";
                 }
                 j++;
             }
