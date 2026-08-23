@@ -9,7 +9,7 @@ public:
     string longestPalindrome(string s) {
         int st=-1,maxl=0;
         int n=s.size();
-        vector<vector<int>>dp(n,vector<int>(n,-1));
+        vector<vector<int>>dp(1001,vector<int>(1001,-1));
         for(int i=0;i<n;i++){
             for(int j=i;j<n;j++){
                 if(solve(i,j,s,dp)){
