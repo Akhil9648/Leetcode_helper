@@ -1,29 +1,23 @@
 class Solution {
 public:
-    string ans;
-    bool isPal(int start,int end,string &s){
-        while(start<=end){
-            if(s[start]!=s[end]) return false;
-            start++;
-            end--;
-        }
-        return true;
-    }
-    int solve(int st,int end,string &s,vector<vector<int>>& dp){
-        if(st>end) return 0;
-        if(dp[st][end]!=-1) return dp[st][end];
-        if(s[st]==s[end] && isPal(st,end,s)){
-            int size=end-st+1;
-            if(size>ans.size()) ans=s.substr(st,size);
-        }
-        int take=solve(st+1,end,s,dp);
-        int notTake=solve(st,end-1,s,dp);
-        return dp[st][end]=max(take,notTake);
+    bool solve(int i,int j,string &s){
+        if(i>=j) return true;
+        if(s[i]==s[j]) return solve(i+1,j-1,s);
+        return false;
     }
     string longestPalindrome(string s) {
+        int st=-1,maxl=0;
         int n=s.size();
-        vector<vector<int>>dp(n,vector<int>(n,-1));
-        solve(0,n-1,s,dp);
-        return ans;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                if(solve(i,j,s)){
+                    if((j-i+1)>maxl){
+                        maxl=j-i+1;
+                        st=i;
+                    }
+                }
+            }
+        }
+        return s.substr(st,maxl);
     }
 };
