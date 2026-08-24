@@ -22,8 +22,6 @@ public:
         }
         s+=(to_string(vowel)+to_string(cons)+to_string(sym));
         s+=(longUrl[k]+longUrl[n-1]);
-        // string shortUrl=longUrl.substr(0,k+1);
-        // shortUrl+=(s);
         mp[s]=longUrl;
         return s;
     }
