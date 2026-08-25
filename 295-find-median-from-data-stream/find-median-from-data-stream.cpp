@@ -1,28 +1,23 @@
 class MedianFinder {
 public:
-    vector<int>arr;
-    int n=0;
+    priority_queue<int>maxi;
+    priority_queue<int,vector<int>,greater<int>>mini;
     MedianFinder() {
         
     }
-    
     void addNum(int num) {
-        int i=0;
-        for(;i<n;i++){
-            if(arr[i]>num) break;
+        maxi.push(num);
+        mini.push(maxi.top());
+        maxi.pop();
+        if(maxi.size()<mini.size()){
+            maxi.push(mini.top());
+            mini.pop();
         }
-        arr.insert(arr.begin()+i,num);
-        n++;
     }
     
     double findMedian() {
-        if(n%2==0){
-            int a=arr[n/2-1]+arr[n/2];
-            return (double) a/2;
-        }
-        else{
-            return (double) arr[n/2];
-        }
+        if(maxi.size()>mini.size()) return maxi.top();
+        return (maxi.top()+mini.top())/2.0;
     }
 };
 
