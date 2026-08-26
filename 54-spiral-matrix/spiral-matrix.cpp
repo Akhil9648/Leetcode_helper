@@ -1,48 +1,46 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int n=matrix.size();
-        int m=matrix[0].size();
+        int n=matrix.size(),m=matrix[0].size();
         int top=0,bottom=n-1;
-        int left=0,right=m-1;
-        int dir=0;
+        int l=0,r=m-1,dir=0;
         vector<int>ans;
-        while(top<=bottom && left<=right){
+        while(top<=bottom && l<=r){
             if(dir==0){
-                int a=left;
-                while(a<=right){
-                    ans.push_back(matrix[top][a]);
-                    a++;
+                int ptr=l;
+                while(ptr<=r){
+                    ans.push_back(matrix[top][ptr]);
+                    ptr++;
                 }
-                top++;
                 dir=(dir+1)%4;
+                top++;
             }
             else if(dir==1){
-                int a=top;
-                while(a<=bottom){
-                    ans.push_back(matrix[a][right]);
-                    a++;
+                int ptr=top;
+                while(ptr<=bottom){
+                    ans.push_back(matrix[ptr][r]);
+                    ptr++;
                 }
-                right--;
                 dir=(dir+1)%4;
+                r--;
             }
             else if(dir==2){
-                int a=right;
-                while(a>=left){
-                    ans.push_back(matrix[bottom][a]);
-                    a--;
+                int ptr=r;
+                while(ptr>=l){
+                    ans.push_back(matrix[bottom][ptr]);
+                    ptr--;
                 }
+                dir=(dir+1)%4;
                 bottom--;
-                dir=(dir+1)%4;
             }
-            else if(dir==3){
-                int a=bottom;
-                while(a>=top){
-                    ans.push_back(matrix[a][left]);
-                    a--;
+            else{
+                int ptr=bottom;
+                while(ptr>=top){
+                    ans.push_back(matrix[ptr][l]);
+                    ptr--;
                 }
-                left++;
                 dir=(dir+1)%4;
+                l++;
             }
         }
         return ans;
