@@ -35,7 +35,7 @@ public:
         if(dp[i]!=-1) return dp[i];
         int take=solve(i+1,s,k,dp,isPal);
         for(int j=i+k-1;j<n;j++){
-            if(s[i]==s[j] && isPal[i][j]){
+            if(isPal[i][j]){
                 int a=1+solve(j+1,s,k,dp,isPal);
                 take=max(a,take);
             }
