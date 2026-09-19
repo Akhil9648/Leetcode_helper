@@ -1,28 +1,27 @@
 class Solution {
 public:
-    string ans(string &curr){
-        int n=curr.size();
+    string cnt(string s){
+        int n=s.size();
         int a=1;
-        char b=curr[0];
-        string res;
-        for(int i=1;i<n;i++){
-            if(curr[i]!=b){
-                res.push_back(a+'0');
-                res.push_back(b);
+        string ans="";
+        for(int i=0;i<n-1;i++){
+            if(s[i]!=s[i+1]){
+                ans+=(to_string(a)+s[i]);
                 a=1;
-                b=curr[i];
+                continue;
             }
-            else a++;
+            a++;
         }
-        res.push_back(a+'0');
-        res.push_back(b);
-        return res;
+        if(a>0){
+            ans+=(to_string(a)+s[n-1]);
+        }
+        return ans;
     }
     string countAndSay(int n) {
-        string curr="1";
+        string a="1";
         while(--n){
-            curr=ans(curr);
+            a=cnt(a);
         }
-        return curr;
+        return a;
     }
 };
