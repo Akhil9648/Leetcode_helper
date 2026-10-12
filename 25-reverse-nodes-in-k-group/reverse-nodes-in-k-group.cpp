@@ -1,5 +1,4 @@
-/**
- * Definition for singly-linked list.
+ /* Definition for singly-linked list.
  * struct ListNode {
  *     int val;
  *     ListNode *next;
@@ -10,35 +9,54 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* head){
-        ListNode* temp=head,*prev=NULL;
-        while(temp){
-            ListNode* nxt=temp->next;
-            temp->next=prev;
-            prev=temp;
-            temp=nxt;
-        }
-        return prev;
-    }
     ListNode* reverseKGroup(ListNode* head, int k) {
-        int a=k;
-        ListNode* temp=head,*start=head,*prev;
-        while(temp){
-            a--;
-            if(a==0){
-                ListNode* nxt=temp->next;
-                temp->next=NULL;
-                ListNode *b=reverse(start);
-                if(start==head) head=temp;
-                else prev->next=temp;
-                start->next=nxt;
-                temp=start;
-                prev=start;
-                start=nxt;
-                a=k;
+        if (!head || k == 1) return head;
+
+        ListNode* oh = nullptr;
+        ListNode* ot = nullptr;
+        ListNode* th = nullptr;
+        ListNode* tt = nullptr;
+
+        ListNode* c = head;
+        ListNode* f = nullptr;
+
+        int len = 0;
+        ListNode* temp = head;
+        while (temp) {
+            len++;
+            temp = temp->next;
+        }
+        while (len >= k) {
+            int tk = k;
+            while (tk > 0) {
+                f = c->next;
+                
+                if (!th) {
+                    th = c;
+                    tt = c;
+                    c->next = nullptr;
+                } else {
+                    c->next = th;
+                    th = c;
+                }
+
+                c = f;
+                tk--;
             }
-            temp=temp->next;
-        }   
-        return head;
+            if (!oh) {
+                oh = th;
+                ot = tt;
+            } else {
+                ot->next = th;
+                ot = tt;
+            }
+            th = nullptr;
+            tt = nullptr;
+            len -= k;
+        }
+        if (c) {
+            ot->next = c;
+        }
+        return oh;
     }
 };
